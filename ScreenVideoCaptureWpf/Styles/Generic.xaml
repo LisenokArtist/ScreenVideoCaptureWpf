@@ -1,6 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:ScreenVideoCaptureWpf.Core.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Palettes\TealPastel\Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    
+    <c:DXAdapterDescriptionConverter x:Key="DXAdapterDescriptionConverter"/>
+    <c:DXOutputDesctiptionConverter x:Key="DXOutputDesctiptionConverter"/>
+    
 </ResourceDictionary>
