@@ -5,34 +5,15 @@ using System.Drawing;
 using ScreenVideoCaptureWpf.Core.Extensions;
 using System.Drawing.Imaging;
 using System.Runtime.ExceptionServices;
+using ScreenVideoCaptureWpf.Core.EventArgs;
 
 namespace ScreenVideoCaptureWpf.Controllers
 {
-    public class OnScreenUpdatedEventArgs : EventArgs
-    {
-        public Bitmap Bitmap { get; set; }
-
-        internal OnScreenUpdatedEventArgs(Bitmap bitmap)
-        {
-            this.Bitmap = bitmap;
-        }
-
-    }
-
-    public class OnCaptureStopEventArgs : EventArgs
-    {
-        public Exception Exception { get; set; }
-
-        internal OnCaptureStopEventArgs(Exception exception)
-        {
-            this.Exception = exception;
-        }
-    }
 
     public class DXStreamController
     {
         #region Events
-        public event EventHandler<OnScreenUpdatedEventArgs> OnScreenUpdated;
+        public event EventHandler<OnFrameUpdatedEventArgs> OnScreenUpdated;
         public event EventHandler<OnCaptureStopEventArgs> OnCaptureStop;
         #endregion
 
@@ -227,7 +208,7 @@ namespace ScreenVideoCaptureWpf.Controllers
                     {
                         try
                         {
-                            OnScreenUpdated?.Invoke(null, new OnScreenUpdatedEventArgs(bitmap));
+                            OnScreenUpdated?.Invoke(null, new OnFrameUpdatedEventArgs(bitmap));
                         }
                         finally
                         {
