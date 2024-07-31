@@ -10,7 +10,7 @@ namespace ScreenVideoCaptureWpf.Core.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="array"></param>
-        public static void AddMany<T>(this Collection<T> collection, T[] array)
+        public static void AddMany<T>(this Collection<T> collection, IEnumerable<T> array)
         {
             foreach (T item in array)
             {
@@ -24,10 +24,13 @@ namespace ScreenVideoCaptureWpf.Core.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="array"></param>
-        public static void SetMany<T>(this Collection<T> collection, T[] array)
+        public static void SetMany<T>(this Collection<T> collection, IEnumerable<T> array)
         {
             collection.Clear();
-            collection.AddMany(array);
+            if (array != null)
+            {
+                collection.AddMany(array);
+            }
         }
     }
 }
