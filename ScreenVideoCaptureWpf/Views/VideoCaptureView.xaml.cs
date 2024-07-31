@@ -11,7 +11,7 @@ namespace ScreenVideoCaptureWpf.Views
         public VideoCaptureView()
         {
             InitializeComponent();
-            DataContext = new VideoCaptureVM(imageControl);
+            DataContext = new VideoCaptureVM(tabControl, imageControl);
         }
     }
 }
