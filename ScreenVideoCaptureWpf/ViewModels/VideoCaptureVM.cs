@@ -97,7 +97,7 @@ namespace ScreenVideoCaptureWpf.ViewModels
                         }
                     } 
                     break;
-                case 2:
+                case 1:
                     if (CameraStreamController.IsNotActive)
                     {
                         if (SelectedCameraDevice != null)

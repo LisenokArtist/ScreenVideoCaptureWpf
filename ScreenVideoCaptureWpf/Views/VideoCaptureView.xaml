@@ -65,10 +65,6 @@
                     </TabItem.Content>
                 </TabItem>
                 
-                <TabItem Header="Process">
-                    
-                </TabItem>
-                
                 <TabItem Header="Camera">
                     <Grid>
                         <Grid.RowDefinitions>
