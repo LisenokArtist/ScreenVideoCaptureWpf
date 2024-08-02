@@ -2,10 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:c="clr-namespace:ScreenVideoCaptureWpf.Core.Converters">
     <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="Controls\TextBox\Generic.xaml"/>-->
+        <ResourceDictionary Source="Controls\ToggleButton\Generic.xaml"/>
+
         <ResourceDictionary Source="Palettes\TealPastel\Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <c:DXAdapterDescriptionConverter x:Key="DXAdapterDescriptionConverter"/>
     <c:DXOutputDesctiptionConverter x:Key="DXOutputDesctiptionConverter"/>
-    
+    <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <c:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 </ResourceDictionary>
