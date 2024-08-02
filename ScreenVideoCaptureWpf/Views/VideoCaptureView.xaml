@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Border Background="{StaticResource TealPastelColor-F8F6F4}" CornerRadius="10">
+    <Border Background="{StaticResource TealPastelBrush-F8F6F4}" CornerRadius="10">
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -28,7 +28,7 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Adapter"/>
@@ -70,16 +70,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
                         <Label Content="Camera"/>
                         <ComboBox Grid.Column="1"
-                                  ItemsSource="{Binding CameraStreamController.DeviceCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding SelectedCameraDevice}">
+                                  ItemsSource="{Binding CameraStreamController.DeviceCollection, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedCameraDevice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type ctrs:CameraDevice}">
                                     <StackPanel>
@@ -90,7 +91,27 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <StackPanel Grid.Row="1" Grid.RowSpan="2"
+                        <Label Grid.Row="1" 
+                               Content="Resolution"/>
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <ToggleButton Height="20" x:Name="resolutionMode" IsChecked="{Binding IsManualResolutionSelection}" HorizontalAlignment="Left"/>
+
+                            <StackPanel Grid.Row="1" 
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding ElementName=resolutionMode, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="Width"/>
+                                <TextBox d:Text="1920" Width="35" Text="{Binding SelectedCameraResolutionWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Height"/>
+                                <TextBox d:Text="1024" Width="35" Text="{Binding SelectedCameraResolutionHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
+                            <ComboBox Grid.Row="2"
+                                      ItemsSource="{Binding SelectedCameraDevice.Resolutions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding SelectedCameraResolution, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Visibility="{Binding ElementName=resolutionMode, Path=IsChecked, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.RowSpan="2"
                                     Orientation="Horizontal">
                             <Button Content="Start" Command="{Binding StartCaptureCommand}"/>
                             <Button Content="Stop" Command="{Binding StopCaptureCommand}"/>

@@ -15,6 +15,11 @@ namespace ScreenVideoCaptureWpf.ViewModels
         public SharpDX.DXGI.Adapter SelectedAdapter { get; set; }
         public SharpDX.DXGI.Output SelectedOutput { get; set; }
         public CameraDevice SelectedCameraDevice { get; set; }
+        public Resolution SelectedCameraResolution { get; set; }
+        public string SelectedCameraResolutionWidth { get; set; }
+        public string SelectedCameraResolutionHeight { get; set; }
+        public bool IsManualResolutionSelection { get; set; }
+
         #endregion
 
         #region Fields
@@ -102,7 +107,20 @@ namespace ScreenVideoCaptureWpf.ViewModels
                     {
                         if (SelectedCameraDevice != null)
                         {
-                            CameraStreamController.StartCapture(SelectedCameraDevice);
+                            if (IsManualResolutionSelection)
+                            {
+                                var w = Convert.ToInt32(SelectedCameraResolutionWidth);
+                                var h = Convert.ToInt32(SelectedCameraResolutionHeight);
+                                if (w != 0 && h != 0)
+                                    CameraStreamController.StartCapture(SelectedCameraDevice, new Resolution(w, h));
+                            }
+                            else
+                            {
+                                if (SelectedCameraResolution != null)
+                                {
+                                    CameraStreamController.StartCapture(SelectedCameraDevice, SelectedCameraResolution);
+                                };
+                            }
                         }
                     }
                     break;
