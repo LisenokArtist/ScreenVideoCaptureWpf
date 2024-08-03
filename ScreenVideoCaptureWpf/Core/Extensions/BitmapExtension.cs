@@ -39,7 +39,7 @@ namespace ScreenVideoCaptureWpf.Core.Extensions
             IEnumerable<YoloDotNet.Models.ObjectDetection> predictions,
             Font font = null)
         {
-            font ??= new Font("Tahoma", 8);
+            font ??= new Font("Tahoma", 18);
 
             using Graphics graphics = Graphics.FromImage(bitmap);
             using Pen pen = new Pen(System.Drawing.Color.FromKnownColor(KnownColor.Red), 2);
@@ -51,7 +51,7 @@ namespace ScreenVideoCaptureWpf.Core.Extensions
                     new System.Drawing.Point(p.BoundingBox.Right, p.BoundingBox.Top),
                     new System.Drawing.Point(p.BoundingBox.Right, p.BoundingBox.Bottom),
                     new System.Drawing.Point(p.BoundingBox.Left, p.BoundingBox.Bottom)});
-                graphics.DrawString($"{p.Label.Name} ({p.Confidence})", font, Brushes.Red, new System.Drawing.Point(p.BoundingBox.Left, p.BoundingBox.Top));
+                graphics.DrawString($"{p.Label.Name} ({Math.Round(p.Confidence*100)}%)", font, Brushes.Red, new System.Drawing.Point(p.BoundingBox.Left, p.BoundingBox.Top));
             }
 
             return bitmap;
