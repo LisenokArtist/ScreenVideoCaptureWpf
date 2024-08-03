@@ -11,6 +11,7 @@ namespace ScreenVideoCaptureWpf.ViewModels
         #region Properties
         public DXStreamController DXStreamController { get; private set; }
         public CameraStreamController CameraStreamController { get; private set; }
+        public ObjectDetectionController ObjectDetectionController { get; private set; }
 
         public SharpDX.DXGI.Adapter SelectedAdapter { get; set; }
         public SharpDX.DXGI.Output SelectedOutput { get; set; }
@@ -41,8 +42,14 @@ namespace ScreenVideoCaptureWpf.ViewModels
             _tabControl = tabControl;
             _imageControl = imageControl;
 
+            InitializeObjectDetectionController();
             InitializeDXStreamController();
             InitializeCameraStreamController();
+        }
+
+        private void InitializeObjectDetectionController()
+        {
+            ObjectDetectionController = new ObjectDetectionController();
         }
 
         private void InitializeDXStreamController()
@@ -69,7 +76,9 @@ namespace ScreenVideoCaptureWpf.ViewModels
             {
                 if (e?.Bitmap != null)
                 {
-                    _imageControl.Source = e.Bitmap.ToImageSource();
+                    var mutated = ObjectDetectionController.Mutate(e.Bitmap);
+                    _imageControl.Source = mutated.ToImageSource();
+                    //_imageControl.Source = e.Bitmap.ToImageSource();
                 }
             }));
         }
